@@ -8,6 +8,6 @@ router.post('/', ProductValidator.create(), ProductController.create);
 
 router.put('/:id', ProductValidator.update(), ProductController.update);
 
-router.delete('/:id', ProductValidator.update(), ProductController.destroy);
+router.delete('/:id', ProductValidator.destroy(), ProductController.destroy);
 
 export default router;

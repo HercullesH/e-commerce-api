@@ -1,6 +1,6 @@
 import { validationResult } from 'express-validator';
 import createError from 'http-errors';
-import * as CategoryService from '../services/product.service';
+import * as CategoryService from '../services/category.service';
 
 export const listAll = (req, res, next) => {
 	try {

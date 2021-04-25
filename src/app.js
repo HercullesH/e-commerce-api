@@ -1,14 +1,14 @@
 import express from 'express';
 import cors from 'cors';
-import product from './app/routes/product.route';
 import handleError from './app/middlewares/handleError';
+import createRoutes from './app/routes/index';
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: '*' }));
-app.use('/api/products', product);
+createRoutes(app);
 app.use(handleError);
 
 // eslint-disable-next-line no-console
