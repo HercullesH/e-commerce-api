@@ -18,6 +18,12 @@ class HandleError {
 		res.status(error.status || 500);
 		res.json(errors);
 	}
+
+	static handle404Error(req, res) {
+
+		res.status(404);
+		res.json(['Não encontrado']);
+	}
 }
 
 export default HandleError;

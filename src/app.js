@@ -15,6 +15,7 @@ class App {
 		this.app.use(cors({ origin: '*' }));
 		this.router.setup(this.app);
 		this.app.use(HandleError.handleError);
+		this.app.use(HandleError.handle404Error);
 
 		// eslint-disable-next-line no-console
 		this.app.listen(3000, () => { console.log('running'); });
