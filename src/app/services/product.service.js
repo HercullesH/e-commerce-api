@@ -1,24 +1,34 @@
-import * as ProductRepository from '../repositories/product.repository';
-export const create = async (product) => {
-	return await ProductRepository.create(product);
-};
+import ProductRepository from '../repositories/product.repository';
 
-export const update = async (changes, filter) => {
-	const product = await ProductRepository.findByPk(filter);
-
-	if (!product) {
-		throw Error('produto não existe');
+class ProductService {
+	constructor() {
+		this.productRepository = new ProductRepository();
 	}
 
-	return await ProductRepository.update(changes, { id: filter });
-};
-
-export const destroy = async (filter) => {
-	const product = await ProductRepository.findByPk(filter);
-
-	if (!product) {
-		throw Error('produto não existe');
+	async create(product) {
+		return await this.productRepository.create(product);
 	}
 
-	return await ProductRepository.destroy(filter);
-};
+	async update(changes, filter) {
+		const product = await this.productRepository.findByPk(filter);
+
+		if (!product) {
+			throw Error('produto não existe');
+		}
+
+		return await this.productRepository.update(changes, { id: filter });
+	}
+
+	async destroy(filter) {
+		const product = await this.productRepository.findByPk(filter);
+
+		if (!product) {
+			throw Error('produto não existe');
+		}
+
+		return await this.productRepository.destroy(filter);
+	}
+
+}
+
+export default ProductService;

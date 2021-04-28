@@ -1,12 +1,20 @@
-
 import { Category } from '../database/models/index';
+class CategoryRepository {
+	create(category) {
+		return Category.create(category);
+	}
 
-export const create = (category) => Category.create(category);
+	update(category, filter) {
+		return Category.update(category, { where: filter });
+	}
 
-export const update = (category, filter) => {
-	return Category.update(category, { where: filter });
-};
+	findByPk(id) {
+		return Category.findByPk(id);
+	}
 
-export const findByPk = (id) => Category.findByPk(id);
+	destroy(id) {
+		return Category.destroy({ where: { id: id } });
+	}
+}
 
-export const destroy = (id) => Category.destroy({ where: { id: id } });
+export default CategoryRepository;

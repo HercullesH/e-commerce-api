@@ -1,12 +1,21 @@
 
 import { Product } from '../database/models/index';
+class ProductRepository {
+	create(product) {
+		return Product.create(product);
+	}
 
-export const create = (product) => Product.create(product);
+	update(product, filter) {
+		return Product.update(product, { where: filter });
+	}
 
-export const update = (product, filter) => {
-	return Product.update(product, { where: filter });
-};
+	findByPk(id) {
+		return Product.findByPk(id);
+	}
 
-export const findByPk = (id) => Product.findByPk(id);
+	destroy(id) {
+		return Product.destroy({ where: { id: id } });
+	}
+}
 
-export const destroy = (id) => Product.destroy({ where: { id: id } });
+export default ProductRepository;

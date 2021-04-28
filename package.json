@@ -10,7 +10,7 @@
     "build": "babel src -d dist",
     "watch": "babel src -d dist --watch",
     "start": "npm run build && nodemon dist/app.js",
-    "dev": "nodemon --exec babel-node src/app.js"
+    "dev": "nodemon --exec babel-node index.js"
   },
   "keywords": [],
   "author": "",

@@ -1,13 +1,20 @@
 import express from 'express';
-import * as CategoryController from '../controllers/category.controller';
+import CategoryController from '../controllers/category.controller';
 import * as CategoryValidator from '../validators/category.validator';
 
-const router = express.Router();
+class CategoryRouter {
+	constructor() {
+		this.router = express.Router();
+		this.categoryController = new CategoryController();
+	}
 
-router.post('/', CategoryValidator.create(), CategoryController.create);
+	setup() {
+		this.router.post('/', CategoryValidator.create(), this.categoryController.create);
+		this.router.put('/:id', CategoryValidator.update(), this.categoryController.update);
+		this.router.delete('/:id', CategoryValidator.destroy(), this.categoryController.destroy);
 
-router.put('/:id', CategoryValidator.update(), CategoryController.update);
+		return this.router;
+	}
+}
 
-router.delete('/:id', CategoryValidator.destroy(), CategoryController.destroy);
-
-export default router;
+export default CategoryRouter;

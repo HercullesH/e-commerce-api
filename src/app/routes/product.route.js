@@ -1,13 +1,20 @@
 import express from 'express';
-import * as ProductController from '../controllers/product.controller';
+import ProductController from '../controllers/product.controller';
 import * as ProductValidator from '../validators/product.validator';
 
-const router = express.Router();
+class ProductRouter {
+	constructor() {
+		this.router = express.Router();
+		this.productController = new ProductController();
+	}
 
-router.post('/', ProductValidator.create(), ProductController.create);
+	setup() {
+		this.router.post('/', ProductValidator.create(), this.productController.create);
+		this.router.put('/:id', ProductValidator.update(), this.productController.update);
+		this.router.delete('/:id', ProductValidator.destroy(), this.productController.destroy);
 
-router.put('/:id', ProductValidator.update(), ProductController.update);
+		return this.router;
+	}
+}
 
-router.delete('/:id', ProductValidator.destroy(), ProductController.destroy);
-
-export default router;
+export default ProductRouter;

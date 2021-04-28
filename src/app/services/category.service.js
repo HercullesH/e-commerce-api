@@ -1,24 +1,34 @@
-import * as CategoryRepository from '../repositories/category.repository';
-export const create = async (category) => {
-	return await CategoryRepository.create(category);
-};
+import CategoryRepository from '../repositories/category.repository';
 
-export const update = async (changes, filter) => {
-	const category = await CategoryRepository.findByPk(filter);
-
-	if (!category) {
-		throw Error('categoria não existe');
+class CategoryService {
+	constructor() {
+		this.categoryRepository = new CategoryRepository();
 	}
 
-	return await CategoryRepository.update(changes, { id: filter });
-};
-
-export const destroy = async (filter) => {
-	const category = await CategoryRepository.findByPk(filter);
-
-	if (!category) {
-		throw Error('categoria não existe');
+	async create(category) {
+		return await this.categoryRepository.create(category);
 	}
 
-	return await CategoryRepository.destroy(filter);
-};
+	async update(changes, filter) {
+		const category = await this.categoryRepository.findByPk(filter);
+
+		if (!category) {
+			throw Error('categoria não existe');
+		}
+
+		return await this.categoryRepository.update(changes, { id: filter });
+	}
+
+	async destroy(filter) {
+		const category = await this.categoryRepository.findByPk(filter);
+
+		if (!category) {
+			throw Error('categoria não existe');
+		}
+
+		return await this.categoryRepository.destroy(filter);
+	}
+
+}
+
+export default CategoryService;
