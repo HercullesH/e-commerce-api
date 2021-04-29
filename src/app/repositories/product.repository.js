@@ -1,5 +1,5 @@
-
 import { Product } from '../database/models/index';
+
 class ProductRepository {
 	create(product) {
 		return Product.create(product);

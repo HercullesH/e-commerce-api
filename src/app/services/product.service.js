@@ -1,4 +1,5 @@
 import ProductRepository from '../repositories/product.repository';
+import ErrorMessage from '../utils/errorMessage';
 
 class ProductService {
 	constructor() {
@@ -13,7 +14,7 @@ class ProductService {
 		const product = await this.productRepository.findByPk(filter);
 
 		if (!product) {
-			throw Error('produto não existe');
+			throw Error(ErrorMessage.notExists('Produto'));
 		}
 
 		return await this.productRepository.update(changes, { id: filter });
@@ -23,7 +24,7 @@ class ProductService {
 		const product = await this.productRepository.findByPk(filter);
 
 		if (!product) {
-			throw Error('produto não existe');
+			throw Error(ErrorMessage.notExists('Produto'));
 		}
 
 		return await this.productRepository.destroy(filter);

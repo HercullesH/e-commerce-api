@@ -1,4 +1,5 @@
 import CategoryRepository from '../repositories/category.repository';
+import ErrorMessage from '../utils/errorMessage';
 
 class CategoryService {
 	constructor() {
@@ -13,7 +14,7 @@ class CategoryService {
 		const category = await this.categoryRepository.findByPk(filter);
 
 		if (!category) {
-			throw Error('categoria não existe');
+			throw Error(ErrorMessage.notExists('Categoria'));
 		}
 
 		return await this.categoryRepository.update(changes, { id: filter });
@@ -23,7 +24,7 @@ class CategoryService {
 		const category = await this.categoryRepository.findByPk(filter);
 
 		if (!category) {
-			throw Error('categoria não existe');
+			throw Error(ErrorMessage.notExists('Categoria'));
 		}
 
 		return await this.categoryRepository.destroy(filter);

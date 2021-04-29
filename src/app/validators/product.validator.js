@@ -1,26 +1,27 @@
 import { body, param } from 'express-validator';
+import ErrorMessage from '../utils/errorMessage';
 
 class ProductValidator {
 	create() {
 		return [
-			body('name', 'Nome é inválido').exists(),
-			body('price', 'Preço inválido').exists().bail().isFloat({ gt: 0.0 }),
-			body('category_id', 'Produto inválido').exists().bail().isInt({ gt: 0 })
+			body('name', ErrorMessage.validatorMessage('Nome')).exists(),
+			body('price', ErrorMessage.validatorMessage('Preço')).exists().bail().isFloat({ gt: 0.0 }),
+			body('category_id', ErrorMessage.validatorMessage('Categoria')).exists().bail().isInt({ gt: 0 })
 		];
 	}
 
 	update() {
 		return [
-			body('name', 'Nome é inválido').exists(),
-			body('price', 'Preço inválido').exists().bail().isFloat({ gt: 0.0 }),
-			body('category_id', 'Produto inválido').exists().bail().isInt({ gt: 0 }),
-			param('id', 'id inválido').exists()
+			body('name', ErrorMessage.validatorMessage('Nome')).exists(),
+			body('price', ErrorMessage.validatorMessage('Preço')).exists().bail().isFloat({ gt: 0.0 }),
+			body('category_id', ErrorMessage.validatorMessage('Categoria')).exists().bail().isInt({ gt: 0 }),
+			param('id', ErrorMessage.validatorMessage('ID')).exists()
 		];
 	}
 
 	destroy() {
 		return [
-			param('id', 'id inválido').exists()
+			param('id',  ErrorMessage.validatorMessage('ID')).exists()
 		];
 	}
 }

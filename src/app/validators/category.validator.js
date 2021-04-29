@@ -1,22 +1,23 @@
 import { body, param } from 'express-validator';
+import ErrorMessage from '../utils/errorMessage';
 
 class CategoryValidator {
 	create() {
 		return [
-			body('name', 'Nome inválido').exists()
+			body('name', ErrorMessage.validatorMessage('Nome')).exists()
 		];
 	}
 
 	update() {
 		return [
-			body('name', 'Nome inválido').exists(),
-			param('id', 'id inválido').exists()
+			body('name', ErrorMessage.validatorMessage('Nome')).exists(),
+			param('id', ErrorMessage.validatorMessage('ID')).exists()
 		];
 	}
 
 	destroy() {
 		return [
-			param('id', 'id inválido').exists()
+			param('id', ErrorMessage.validatorMessage('ID')).exists()
 		];
 	}
 }
