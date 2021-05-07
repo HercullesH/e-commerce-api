@@ -1,4 +1,6 @@
 import { Product } from '../database/models/index';
+import Paginator from '../utils/paginator';
+import { sequelize } from '../database/models/index';
 
 class ProductRepository {
 	create(product) {
@@ -15,6 +17,14 @@ class ProductRepository {
 
 	destroy(id) {
 		return Product.destroy({ where: { id: id } });
+	}
+
+	paginate(filter) {
+		return Product.findAndCountAll({
+			...Paginator.paginate(filter.page, filter.pageSize),
+			where: { active: true },
+			order: sequelize.literal('id DESC')
+		});
 	}
 }
 

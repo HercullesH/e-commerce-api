@@ -1,11 +1,11 @@
-import { validationResult } from 'express-validator';
-import createError from 'http-errors';
+import BaseController from './base.controller';
 import UserService from '../services/user.service';
 
-class UserController {
+class UserController extends BaseController {
 	constructor() {
-		this.userService = new UserService();
+		super();
 
+		this.userService = new UserService();
 		this.listAll = this.listAll.bind(this);
 		this.create = this.create.bind(this);
 		this.update = this.update.bind(this);
@@ -29,11 +29,7 @@ class UserController {
 
 	async create(req, res, next) {
 		try {
-			const errors = validationResult(req);
-
-			if (!errors.isEmpty()) {
-				throw createError(422, { errors: errors.array() });
-			}
+			this.verifyRequest(req);
 
 			const response = await this.userService.create(req.body);
 
@@ -45,11 +41,7 @@ class UserController {
 
 	async update(req, res, next) {
 		try {
-			const errors = validationResult(req);
-
-			if (!errors.isEmpty()) {
-				throw createError(422, { errors: errors.array() });
-			}
+			this.verifyRequest(req);
 
 			const response = await this.userService.update(req.body, req.params.id);
 
@@ -61,11 +53,7 @@ class UserController {
 
 	async destroy(req, res, next) {
 		try {
-			const errors = validationResult(req);
-
-			if (!errors.isEmpty()) {
-				throw createError(422, { errors: errors.array() });
-			}
+			this.verifyRequest(req);
 
 			const response = await this.userService.destroy(req.params.id);
 
@@ -77,11 +65,7 @@ class UserController {
 
 	async login(req, res, next) {
 		try {
-			const errors = validationResult(req);
-
-			if (!errors.isEmpty()) {
-				throw createError(422, { errors: errors.array() });
-			}
+			this.verifyRequest(req);
 
 			const response = await this.userService.login(req.body);
 

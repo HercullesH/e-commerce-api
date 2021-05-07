@@ -12,6 +12,7 @@ class ProductRouter {
 
 	setup() {
 		this.router.post('/', Authorizator.verifyJWT, this.productValidator.create(), this.productController.create);
+		this.router.get('/', Authorizator.verifyJWT, this.productValidator.create(), this.productController.create);
 		this.router.put('/:id', Authorizator.verifyJWT, this.productValidator.update(), this.productController.update);
 		this.router.delete('/:id', Authorizator.verifyJWT, this.productValidator.destroy(), this.productController.destroy);
 

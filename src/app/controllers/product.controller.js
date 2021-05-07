@@ -1,25 +1,20 @@
-import { validationResult } from 'express-validator';
-import createError from 'http-errors';
 import ProductService from '../services/product.service';
+import BaseController from './base.controller';
 
-class ProductController {
+class ProductController extends BaseController {
 	constructor() {
-		this.productService = new ProductService();
+		super();
 
-		this.listAll = this.listAll.bind(this);
+		this.productService = new ProductService();
+		this.paginate = this.paginate.bind(this);
 		this.create = this.create.bind(this);
 		this.update = this.update.bind(this);
 		this.destroy = this.destroy.bind(this);
-
 	}
 
-	listAll(req, res, next) {
+	paginate(req, res, next) {
 		try {
-			// const errors = validationResult(req);
-
-			// if (!errors.isEmpty()) {
-			// 	throw createError(422, { errors: errors.array() });
-			// }
+			this.verifyRequest(req);
 
 			res.json({ message: 'funcionando' });
 		} catch (error) {
@@ -29,11 +24,7 @@ class ProductController {
 
 	async create(req, res, next) {
 		try {
-			const errors = validationResult(req);
-
-			if (!errors.isEmpty()) {
-				throw createError(422, { errors: errors.array() });
-			}
+			this.verifyRequest(req);
 
 			const response = await this.productService.create(req.body);
 
@@ -45,11 +36,7 @@ class ProductController {
 
 	async update(req, res, next) {
 		try {
-			const errors = validationResult(req);
-
-			if (!errors.isEmpty()) {
-				throw createError(422, { errors: errors.array() });
-			}
+			this.verifyRequest(req);
 
 			const response = await this.productService.update(req.body, req.params.id);
 
@@ -61,11 +48,7 @@ class ProductController {
 
 	async destroy(req, res, next) {
 		try {
-			const errors = validationResult(req);
-
-			if (!errors.isEmpty()) {
-				throw createError(422, { errors: errors.array() });
-			}
+			this.verifyRequest(req);
 
 			const response = await this.productService.destroy(req.params.id);
 

@@ -1,6 +1,6 @@
 class ErrorMessage {
 	static validatorMessage(property) {
-		return `a propriedade é '${property}' é inválido.`;
+		return `a propriedade '${property}' é inválido.`;
 	}
 
 	static notExists(property) {
