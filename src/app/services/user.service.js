@@ -1,7 +1,8 @@
 import UserRepository from '../repositories/user.repository';
 import ErrorMessage from '../utils/errorMessage';
-import { hash } from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 import { config } from 'dotenv';
+import { sign } from 'jsonwebtoken';
 
 config();
 
@@ -11,7 +12,6 @@ class UserService {
 	}
 
 	async create(user) {
-		// eslint-disable-next-line no-undef
 		user.password = await hash(user.password, ~~process.env.SALT);
 
 		return await this.userRepository.create(user);
@@ -35,6 +35,31 @@ class UserService {
 		}
 
 		return await this.userRepository.destroy(filter);
+	}
+
+	async login(user) {
+		const userLoggedIn = await this.userRepository.login(user);
+
+		if (!userLoggedIn || !await compare(user.password, userLoggedIn.password)) {
+			throw Error(ErrorMessage.notExists('Usuário'));
+		}
+
+		const token = sign({ id: userLoggedIn.id }, process.env.SECRET, {});
+
+		delete user.password;
+
+		return {
+			auth: true,
+			user: userLoggedIn,
+			token: token
+		};
+	}
+
+	logout() {
+		return {
+			auth: false,
+			token: null
+		};
 	}
 
 }

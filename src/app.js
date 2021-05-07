@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import HandleError from './app/middlewares/handleError';
+import HandleError from './app/middlewares/handle-error';
 import Router from './app/routes/Router';
 
 class App {

@@ -2,6 +2,13 @@ import { body, param } from 'express-validator';
 import ErrorMessage from '../utils/errorMessage';
 
 class UserValidator {
+	login() {
+		return [
+			body('email', ErrorMessage.validatorMessage('Email')).exists().bail().isString(),
+			body('password', ErrorMessage.validatorMessage('Senha')).exists().bail().isString()
+		];
+	}
+
 	create() {
 		return [
 			body('name', ErrorMessage.validatorMessage('Nome')).exists().bail().isString(),

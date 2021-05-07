@@ -1,6 +1,7 @@
 import express from 'express';
 import ProductController from '../controllers/product.controller';
 import ProductValidator from '../validators/product.validator';
+import Authorizator from '../middlewares/authorizator';
 
 class ProductRouter {
 	constructor() {
@@ -10,9 +11,9 @@ class ProductRouter {
 	}
 
 	setup() {
-		this.router.post('/', this.productValidator.create(), this.productController.create);
-		this.router.put('/:id', this.productValidator.update(), this.productController.update);
-		this.router.delete('/:id', this.productValidator.destroy(), this.productController.destroy);
+		this.router.post('/', Authorizator.verifyJWT, this.productValidator.create(), this.productController.create);
+		this.router.put('/:id', Authorizator.verifyJWT, this.productValidator.update(), this.productController.update);
+		this.router.delete('/:id', Authorizator.verifyJWT, this.productValidator.destroy(), this.productController.destroy);
 
 		return this.router;
 	}

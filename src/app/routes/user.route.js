@@ -10,9 +10,11 @@ class UserRouter {
 	}
 
 	setup() {
-		this.router.post('/', this.userValidator.create(), this.userController.create);
-		this.router.put('/:id', this.userValidator.update(), this.userController.update);
-		this.router.delete('/:id', this.userValidator.destroy(), this.userController.destroy);
+		this.router.post('/login', this.userValidator.login(), this.userController.login);
+		this.router.post('/logout', this.userController.logout);
+		// this.router.post('/', this.userValidator.create(), this.userController.create);
+		// this.router.put('/:id', this.userValidator.update(), this.userController.update);
+		// this.router.delete('/:id', this.userValidator.destroy(), this.userController.destroy);
 
 		return this.router;
 	}

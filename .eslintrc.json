@@ -1,8 +1,9 @@
 {
     "env": {
-        "browser": true,
+        "node": true,
         "commonjs": true,
-        "es2021": true
+        "browser": true,
+        "es6": true
     },
     "extends": "eslint:recommended",
     "parser": "babel-eslint",
@@ -89,9 +90,9 @@
         ],
         "key-spacing": [
             "error",
-            { 
+            {
                 "beforeColon": false,
-                "afterColon": true 
+                "afterColon": true
             }
         ],
         "default-param-last": [

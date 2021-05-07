@@ -16,6 +16,13 @@ class UserRepository {
 	destroy(id) {
 		return User.destroy({ where: { id: id } });
 	}
+
+	login(user) {
+		return User.findOne({
+			where: { email: user.email },
+			raw: true
+		});
+	}
 }
 
 export default UserRepository;
